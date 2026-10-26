@@ -1,0 +1,13 @@
+{
+  "name": "cutie",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gør AI-agtig tekst menneskelig. En statisk hjemmeside med en regelmotor til dansk og engelsk og en valgfri Claude-tilstand.",
+  "scripts": {
+    "test": "node --test",
+    "start": "python3 -m http.server 8080"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

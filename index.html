@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>cutie. – gør din tekst menneskelig</title>
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <meta name="description" content="Gør AI-agtig tekst menneskelig. Fjerner floskler, stive overgangsord og ensformige sætninger på dansk og engelsk, direkte i browseren.">
+  <meta name="theme-color" content="#F6F4FA">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..800,0..100&family=Figtree:wght@400..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    try {
+      var savedTheme = localStorage.getItem('cutie.theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.setAttribute('data-theme', savedTheme);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#input" data-i18n="inputLabel">Din tekst</a>
+
+  <header class="top">
+    <div class="top-inner">
+      <a class="brand" href="./" aria-label="cutie.">
+        <span class="wordmark">cutie<span class="dot">.</span></span>
+        <span class="tagline" data-i18n="tagline">gør din tekst menneskelig</span>
+      </a>
+      <div class="top-actions">
+        <div class="ui-lang" role="group" aria-label="Sprog / Language">
+          <button type="button" id="uiDa" class="pill-btn" data-ui-lang="da" aria-pressed="true">DA</button>
+          <button type="button" id="uiEn" class="pill-btn" data-ui-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" id="themeBtn" class="icon-btn" data-i18n-aria="themeToggle" data-i18n-title="themeToggle" aria-label="Skift mellem lyst og mørkt tema">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path class="i-sun" d="M12 4V2m0 20v-2m8-8h2M2 12h2m13.66-5.66 1.41-1.41M4.93 19.07l1.41-1.41m0-11.32L4.93 4.93m14.14 14.14-1.41-1.41M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"/><path class="i-moon" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1 data-i18n="heroTitle">Fra robot til rigtig person.</h1>
+        <p class="lead" data-i18n="heroLead">Indsæt en tekst, der lyder som en chatbot. cutie. fjerner floskler, stive overgangsord og ensformige sætninger og viser præcis, hvad der er ændret. Det hele sker i din browser.</p>
+      </div>
+      <figure class="proof" aria-labelledby="proofCap">
+        <figcaption id="proofCap" class="eyebrow" data-i18n="heroProofLabel">Sådan ser en rettelse ud</figcaption>
+        <p class="proof-line"><del>Derudover, er det vigtigt at bemærke, at</del> <ins>Og så</ins> holder vi <del>endvidere</del> <ins>også</ins> fast i ordstillingen.</p>
+        <p class="proof-line"><del>Furthermore, it is important to note that</del> <ins>Also,</ins> we <del>do not</del> <ins>don't</ins> <del>delve into</del> <ins>dig into</ins> clichés.</p>
+      </figure>
+    </section>
+
+    <section class="workbench" aria-label="Værktøj" data-i18n-aria="toolLabel">
+      <form class="toolbar" id="toolbar" autocomplete="off">
+        <fieldset class="field">
+          <legend data-i18n="engine">Motor</legend>
+          <div class="seg">
+            <input type="radio" name="mode" id="modeRules" value="rules" checked><label for="modeRules" data-i18n="engineRules">Regelmotor</label>
+            <input type="radio" name="mode" id="modeAi" value="ai"><label for="modeAi"><span class="spark" aria-hidden="true">✦</span> <span data-i18n="engineAi">Claude</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label class="legend" for="langSel" data-i18n="textLang">Sprog</label>
+          <div class="select-wrap">
+            <select id="langSel">
+              <option value="auto" data-i18n="langAuto">Automatisk</option>
+              <option value="da" data-i18n="langDa">Dansk</option>
+              <option value="en" data-i18n="langEn">Engelsk</option>
+            </select>
+          </div>
+        </div>
+
+        <fieldset class="field">
+          <legend data-i18n="tone">Tone</legend>
+          <div class="seg">
+            <input type="radio" name="tone" id="toneCasual" value="casual"><label for="toneCasual" data-i18n="toneCasual">Afslappet</label>
+            <input type="radio" name="tone" id="toneNeutral" value="neutral" checked><label for="toneNeutral" data-i18n="toneNeutral">Neutral</label>
+            <input type="radio" name="tone" id="toneProfessional" value="professional"><label for="toneProfessional" data-i18n="toneProfessional">Professionel</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend data-i18n="level">Styrke</legend>
+          <div class="seg seg-level">
+            <input type="radio" name="level" id="level1" value="1"><label for="level1"><span class="pips" aria-hidden="true"><i></i></span><span data-i18n="level1">Let</span></label>
+            <input type="radio" name="level" id="level2" value="2" checked><label for="level2"><span class="pips" aria-hidden="true"><i></i><i></i></span><span data-i18n="level2">Medium</span></label>
+            <input type="radio" name="level" id="level3" value="3"><label for="level3"><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="level3">Kraftig</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field field-run">
+          <button type="submit" class="run-btn" id="runBtn">
+            <span class="run-label" data-i18n="run">Gør menneskelig</span>
+            <kbd class="run-kbd">Ctrl ↵</kbd>
+          </button>
+        </div>
+      </form>
+
+      <div class="drawers">
+        <details class="drawer" id="moreDrawer">
+          <summary><span data-i18n="moreSettings">Flere indstillinger</span></summary>
+          <div class="drawer-body">
+            <fieldset class="cats">
+              <legend class="legend" data-i18n="whatToFix">Hvad skal rettes?</legend>
+              <div class="cat-grid" id="catGrid"></div>
+            </fieldset>
+            <div class="drawer-cols">
+              <div class="stack">
+                <label class="legend" for="protectInput" data-i18n="protectLabel">Beskyttede ord</label>
+                <input type="text" id="protectInput" class="text-input" data-i18n-placeholder="protectPlaceholder" placeholder="fx Cutie ApS, Kubernetes">
+                <p class="hint" data-i18n="protectHint">Adskil med komma. Navne og fagord her bliver aldrig ændret.</p>
+              </div>
+              <div class="stack">
+                <label class="legend" for="customInput" data-i18n="customLabel">Egne erstatninger</label>
+                <textarea id="customInput" class="text-input mono" rows="3" data-i18n-placeholder="customPlaceholder" placeholder="synergi => samarbejde"></textarea>
+                <p class="hint" data-i18n="customHint">Én pr. linje i formen fra => til. Tom højreside sletter ordet.</p>
+              </div>
+            </div>
+            <button type="button" class="link-btn" id="resetBtn" data-i18n="resetSettings">Nulstil indstillinger</button>
+          </div>
+        </details>
+
+        <details class="drawer drawer-ai" id="aiDrawer" hidden>
+          <summary><span class="spark" aria-hidden="true">✦</span> <span data-i18n="aiTitle">Claude-indstillinger</span></summary>
+          <div class="drawer-body">
+            <p class="hint" data-i18n="aiIntro">Claude omskriver hele teksten og fanger det, regler ikke kan.</p>
+            <div class="drawer-cols">
+              <div class="stack">
+                <label class="legend" for="apiKey" data-i18n="aiKey">API-nøgle</label>
+                <input type="password" id="apiKey" class="text-input mono" autocomplete="off" spellcheck="false" data-i18n-placeholder="aiKeyPlaceholder" placeholder="sk-ant-…">
+                <label class="check"><input type="checkbox" id="rememberKey"><span data-i18n="aiRemember">Husk nøglen på denne enhed</span></label>
+              </div>
+              <div class="stack">
+                <label class="legend" for="modelSel" data-i18n="aiModel">Model</label>
+                <div class="select-wrap">
+                  <select id="modelSel">
+                    <option value="claude-opus-5-5" data-i18n="aiModelOpus">Claude Opus 5.5 (bedst)</option>
+                    <option value="claude-sonnet-5-5" data-i18n="aiModelSonnet">Claude Sonnet 5.5 (hurtigere)</option>
+                    <option value="claude-haiku-5-5" data-i18n="aiModelHaiku">Claude Haiku 5.5 (billigst)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="sheets">
+        <section class="sheet sheet-in" aria-labelledby="inLabel">
+          <div class="sheet-head">
+            <label id="inLabel" for="input" class="sheet-title" data-i18n="inputLabel">Din tekst</label>
+            <span class="badge" id="exampleBadge" hidden data-i18n="exampleBadge">Eksempeltekst</span>
+            <span class="count" id="inCount" aria-live="polite"></span>
+          </div>
+          <div class="drop-zone" id="dropZone">
+            <textarea id="input" class="paper" spellcheck="true" data-i18n-placeholder="inputPlaceholder" placeholder="Indsæt eller skriv din tekst her…"></textarea>
+            <div class="drop-hint" data-i18n="dropHint">Slip filen for at åbne den</div>
+          </div>
+          <div class="sheet-foot">
+            <div class="btn-row">
+              <div class="menu-wrap">
+                <button type="button" class="ghost-btn" id="sampleBtn" aria-haspopup="true" aria-expanded="false" aria-controls="sampleMenu" data-i18n="sample">Indsæt eksempel</button>
+                <div class="menu" id="sampleMenu" role="menu" hidden>
+                  <button type="button" role="menuitem" id="sampleDa" data-i18n="sampleDa">Dansk eksempel</button>
+                  <button type="button" role="menuitem" id="sampleEn" data-i18n="sampleEn">Engelsk eksempel</button>
+                </div>
+              </div>
+              <label class="ghost-btn file-btn" for="fileInput"><span data-i18n="openFile">Åbn fil</span></label>
+              <input type="file" id="fileInput" accept=".txt,.md,.markdown,text/plain,text/markdown" class="visually-hidden">
+              <button type="button" class="ghost-btn" id="clearBtn" data-i18n="clear">Ryd</button>
+            </div>
+            <span class="detected" id="detected"></span>
+          </div>
+        </section>
+
+        <section class="sheet sheet-out" aria-label="Resultat" data-i18n-aria="tabResult">
+          <div class="sheet-head">
+            <div class="tabs" role="tablist">
+              <button type="button" role="tab" id="tabResult" aria-controls="panelResult" aria-selected="true" data-tab="result" data-i18n="tabResult">Resultat</button>
+              <button type="button" role="tab" id="tabChanges" aria-controls="panelChanges" aria-selected="false" data-tab="changes" tabindex="-1"><span data-i18n="tabChanges">Ændringer</span> <span class="tab-count" id="changeCount"></span></button>
+              <button type="button" role="tab" id="tabAnalysis" aria-controls="panelAnalysis" aria-selected="false" data-tab="analysis" tabindex="-1" data-i18n="tabAnalysis">Analyse</button>
+            </div>
+            <div class="score-chip" id="scoreChip" title="">
+              <span class="score-dot" aria-hidden="true"></span>
+              <span id="scoreChipText"></span>
+            </div>
+          </div>
+
+          <div class="panel" id="panelResult" role="tabpanel" aria-labelledby="tabResult">
+            <textarea id="output" class="paper" data-i18n-placeholder="outputPlaceholder" placeholder="Resultatet kommer her."></textarea>
+            <div class="status" id="status" role="status" aria-live="polite" hidden></div>
+          </div>
+
+          <div class="panel" id="panelChanges" role="tabpanel" aria-labelledby="tabChanges" hidden>
+            <div class="scroll">
+              <p class="summary" id="diffSummary"></p>
+              <div class="diff paper-like" id="diffView"></div>
+              <h3 class="subhead" data-i18n="changesList">Rettelser</h3>
+              <ul class="change-list" id="changeList"></ul>
+            </div>
+          </div>
+
+          <div class="panel" id="panelAnalysis" role="tabpanel" aria-labelledby="tabAnalysis" hidden>
+            <div class="scroll" id="analysisView"></div>
+          </div>
+
+          <div class="sheet-foot">
+            <div class="btn-row">
+              <button type="button" class="ghost-btn strong" id="copyBtn" data-i18n="copy">Kopiér</button>
+              <button type="button" class="ghost-btn" id="downloadBtn" data-i18n="download">Hent .txt</button>
+              <button type="button" class="ghost-btn" id="rerollBtn" data-i18n="reroll">Ny variation</button>
+              <button type="button" class="ghost-btn" id="useBtn" data-i18n="useAsInput">Brug som input</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="how" aria-labelledby="howTitle">
+      <div class="how-head">
+        <h2 id="howTitle" data-i18n="howTitle">Hvad cutie. retter</h2>
+        <p class="how-lead" data-i18n="howLead"></p>
+      </div>
+      <div class="how-grid" id="howGrid"></div>
+    </section>
+
+    <section class="notes">
+      <div class="note">
+        <h2 class="note-title" data-i18n="privacyTitle">Privatliv</h2>
+        <p data-i18n="privacyText"></p>
+      </div>
+      <div class="note">
+        <h2 class="note-title" data-i18n="shortcutsTitle">Genveje</h2>
+        <p><kbd>Ctrl</kbd> / <kbd>⌘</kbd> + <kbd>Enter</kbd> <span data-i18n="shortcutRun">kører motoren.</span> <kbd>Esc</kbd> <span data-i18n="shortcutStop">stopper Claude.</span></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot-inner">
+      <span class="wordmark small">cutie<span class="dot">.</span></span>
+      <a href="https://github.com/Mikllarsen/cutie" data-i18n="footer">Koden ligger på GitHub.</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/rules-en.js"></script>
+  <script src="js/rules-da.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/analyze.js"></script>
+  <script src="js/diff.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
